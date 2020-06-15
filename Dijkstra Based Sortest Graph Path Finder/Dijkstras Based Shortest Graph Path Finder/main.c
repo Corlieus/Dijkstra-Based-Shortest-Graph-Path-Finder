@@ -43,8 +43,7 @@ void build_graph(graph *g)
     int i;
     bool directed;
     int m;      //number of vertices
-    int x,y;    //vertices in edge (x,y)
-
+    int x,y,w;    //vertices in edge (x,weight,y)
     printf("Reading Graph from %s\n",filename);
     FILE *fp;
     fp = fopen(filename,"r");
@@ -61,11 +60,10 @@ void build_graph(graph *g)
         initialize_graph(g,directed,m);
 
         printf("\n..initialized\n");
+        fflush(stdin);
+        int temp = 1;
+        while(fscanf(fp,"%d,%d",&x,&y) != EOF){
 
-        char temp[2];
-        while(fscanf(fp,"%s[^\n]",&temp) != EOF){
-            x = temp[0]-48;
-            y = temp[2]-48;
             printf("inserting:(%d,%d)\n",x,y);
             insert_edge(g,x,y,directed);
         }
